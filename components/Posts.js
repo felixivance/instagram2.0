@@ -6,8 +6,8 @@ function Posts() {
         {
             id: '123',
             username: 'Felix',
-            userImg: ' https://links.papareact.com/3ke',
-            img: 'https://links.papareact.com/3ke',
+            userImg: ' https://digitalgermancar.com/wp-content/uploads/2021/07/Felix.jpeg',
+            img: 'https://digitalgermancar.com/wp-content/uploads/2021/07/Felix.jpeg',
             caption: 'Subscribe and like'
         },
         {

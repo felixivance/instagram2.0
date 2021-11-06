@@ -25,8 +25,9 @@ function Post({id, username, img, userImg, caption}) {
            </div>
 
             {/* caption */}
-            <div>
-                <p className="p-5 truncate">
+            <div className="pt-3">
+                <p className="pl-5">2,200 Likes</p>
+                <p className="pl-5 truncate">
                     <span className="font-bold mr-1">{username}</span>
                     {caption}
                 </p>
