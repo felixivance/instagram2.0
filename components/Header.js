@@ -5,9 +5,9 @@ import { HomeIcon } from '@heroicons/react/solid';
 function Header() {
     return (
        <div className="">
-            <div className="flex justify-between max-w-6xl items-center mx-5 xl:mx-auto ">
+            <div className="flex justify-between max-w-6xl items-center mx-5 xl:mx-auto">
                 {/* left */}
-                <div className="relative  h-24 w-24 cursor-pointer">
+                <div className="relative  h-14 w-24 cursor-pointer">
                     <Image  src="https://links.papareact.com/ocw" layout="fill" className="" objectFit="contain"/>
                 </div>
                 {/* <div className="relative lg:hidden h-10 w-10 flex-shrink-0 cursor-pointer">
@@ -25,9 +25,10 @@ function Header() {
                 </div>
                 {/* right */}
                 <div className="flex space-x-1">
-                    <HomeIcon className="h-7 text-gray-500" />
-                    <PaperAirplaneIcon className="h-7 text-gray-500" />
-                    <PlusCircleIcon className="h-7 text-gray-500" />
+                    <HomeIcon className="h-7 " />
+                    <MenuIcon className="h-7 md:hidden cursor-pointer" />
+                    <PaperAirplaneIcon className="h-7 text-gray-700" />
+                    <PlusCircleIcon className="h-7 text-gray-700" />
                 </div>
             </div>
        </div>
