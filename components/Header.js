@@ -14,7 +14,7 @@ function Header() {
                     <Image  src="https://links.papareact.com/jjm" layout="fill" className="" objectFit="contain"/>
                 </div> */}
                 {/* middle */}
-                <div className="max-w-xs hidden md:inline-flex">
+                <div className="max-w-xs  md:inline-flex">
                     <div className="flex items-center rounded-md space-x-1 p-3 mt-1  relative">
                         <div className="absolute inset-y-0 pl-3 flex items-center pointer-events-none">
                             <SearchIcon className="h-5 text-gray-500"/>
@@ -24,11 +24,22 @@ function Header() {
                     </div>
                 </div>
                 {/* right */}
-                <div className="flex space-x-1">
-                    <HomeIcon className="h-7 " />
+                <div className="flex space-x-4 items-center justify-end">
+                    <HomeIcon className="navBtn" />
                     <MenuIcon className="h-7 md:hidden cursor-pointer" />
-                    <PaperAirplaneIcon className="h-7 text-gray-700" />
-                    <PlusCircleIcon className="h-7 text-gray-700" />
+                    
+                    <div className="relative navBtn">
+
+                        <PaperAirplaneIcon className="navBtn rotate-45" />
+                        <div className="absolute -top-2 -right-1 text-xs bg-red-500 text-white rounded-full pl-1 pr-1 animate-pulse flex items-center">
+                            3
+                        </div>
+                    </div>
+                    <PlusCircleIcon className="navBtn" />
+                    <UserGroupIcon className="navBtn" />
+                    <HeartIcon className="navBtn" />
+
+                    <img src="https://links.papareact.com/3ke" alt=""  className="h-10 rounded-full cursor-pointer"/>
                 </div>
             </div>
        </div>
