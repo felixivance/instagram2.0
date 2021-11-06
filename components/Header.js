@@ -5,7 +5,7 @@ import { HomeIcon } from '@heroicons/react/solid';
 function Header() {
     return (
        <div className="shadow-sm border-b bg-white top-0 sticky z-50 ">
-            <div className="flex justify-between max-w-6xl items-center  xl:mx-auto w-3/4 mx-auto">
+            <div className="flex justify-between max-w-6xl items-center  xl:mx-auto w-11/12 mx-auto">
                 {/* left */}
                 <div className="relative  h-14 w-24 cursor-pointer">
                     <Image  src="https://links.papareact.com/ocw" layout="fill" className="" objectFit="contain"/>
