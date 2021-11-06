@@ -19,7 +19,7 @@ function Post({id, username, img, userImg, caption}) {
                  <div className="flex space-x-4 ">
                     <HeartIcon className="btn" />
                     <ChatIcon className="btn"/>
-                    <PaperAirplaneIcon className="btn"/>
+                    <PaperAirplaneIcon className="btn rotate-45"/>
                 </div>
                 <BookmarkIcon className="btn"/>
            </div>
@@ -34,13 +34,11 @@ function Post({id, username, img, userImg, caption}) {
             {/* comments */}
 
 
-
-
             {/* input box */}
             <div className="flex items-center p-4">
-                <EmojiHappyIcon className="h-7"/>
+                <EmojiHappyIcon className="h-7 "/>
                 <input type="text" className="border-none flex-1 focus:ring-0 outline-none" placeholder="Post your comment here"  />
-                <button>Post</button>
+                <button className="font-semibold text-blue-400">Post</button>
             </div>
             
         </div>
