@@ -4,7 +4,7 @@ function MiniProfile() {
             <div>
                 <img src="https://digitalgermancar.com/wp-content/uploads/2021/07/Felix.jpeg" className="rounded-full w-16 h-16" alt="img" />
             </div>
-            <div className="tracking-wide">
+            <div className="tracking-wide flex-1 mx-4">
                 <h2 className="font-bold">Felix</h2>
                 <h2 className="text-sm text-gray-400">Welcome to instagram</h2>
             </div>
