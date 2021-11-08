@@ -38,7 +38,11 @@ function Suggestions() {
                         <div className="flex-1 ml-4">
                             <h2>{profile.username}</h2>
                             <h3 className="text-gray-400">Works at {profile.company.name}</h3>
+
                         </div>
+                        <div className="">
+                            <button className="text-blue-400">Follow</button>
+                         </div>
                     </div>
                     
                 ))
