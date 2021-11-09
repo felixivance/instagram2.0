@@ -1,17 +1,25 @@
 import { getProviders, signIn } from "next-auth/react";
+import Header from "../../components/Header";
 
 function signin({providers}) {
     return (
        <>
-            {
-                Object.values(providers).map((provider, index)=>(
-                    <div key={index} className="">
-                        <button onClick={()=> signIn(provider.id) }> 
-                            Sign in with {provider.name}
-                         </button>
-                    </div>
-                ))
-            }
+            <Header />
+            <div className="flex flex-col items-center pt-10">
+                <img className="w-80" src="https://links.papareact.com/ocw" alt="" />
+
+                <div className="mt-40">
+                {
+                    Object.values(providers).map((provider, index)=>(
+                        <div key={index} className="">
+                            <button className="p-3 bg-blue-500 text-white rounded-md" onClick={()=> signIn(provider.id) }> 
+                                Sign in with {provider.name}
+                            </button>
+                        </div>
+                    ))
+                }
+                </div>
+            </div>
        </>
     )
 }
