@@ -3,6 +3,8 @@ import { SearchIcon, PlusCircleIcon, UserGroupIcon, HeartIcon, PaperAirplaneIcon
 import { HomeIcon } from '@heroicons/react/solid';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { modalState } from '../atoms/modalAtom';
+import { useRecoilState } from 'recoil';
 
 function Header() {
 
@@ -10,7 +12,7 @@ function Header() {
     const {data:session} = useSession();
     const router = useRouter();
 
-    
+    const [open, setOpenState] = useRecoilState(modalState);
 
     return (
        <div className="shadow-sm border-b bg-white top-0 sticky z-50 ">
@@ -40,17 +42,17 @@ function Header() {
                     {
                         session ? (
                             <>
-                            <div className="relative navBtn">
+                                <div className="relative navBtn">
 
-                                 <PaperAirplaneIcon className="navBtn rotate-45" />
-                            <div className="absolute -top-2 -right-1 text-xs bg-red-500 text-white rounded-full pl-1 pr-1 animate-pulse flex items-center">
-                                3
-                            </div>
-                            </div>
-                            <PlusCircleIcon className="navBtn" />
-                            <UserGroupIcon className="navBtn" />
-                            <HeartIcon className="navBtn" />
-                            <img src={session.user?.image} alt=""  className="h-10 w-10 rounded-full cursor-pointer" onClick={signOut}/>
+                                    <PaperAirplaneIcon className="navBtn rotate-45" />
+                                <div className="absolute -top-2 -right-1 text-xs bg-red-500 text-white rounded-full pl-1 pr-1 animate-pulse flex items-center">
+                                    3
+                                </div>
+                                </div>
+                                <PlusCircleIcon className="navBtn" onClick={()=>setOpenState(true)} />
+                                <UserGroupIcon className="navBtn" />
+                                <HeartIcon className="navBtn" />
+                                <img src={session.user?.image} alt=""  className="h-10 w-10 rounded-full cursor-pointer" onClick={signOut}/>
                             </>
                         ) :(
                             <button onClick={signIn}>Sign In</button>
