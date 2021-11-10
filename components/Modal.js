@@ -1,11 +1,19 @@
 import { useRecoilState } from "recoil"
 import { modalState } from "../atoms/modalAtom"
 import { Transition, Dialog } from '@headlessui/react';
-import { Fragment } from "react";
+import { Fragment, useRef, useState } from "react";
+import { CameraIcon } from "@heroicons/react/outline";
 
 function Modal() {
     const [open, setOpen]  = useRecoilState(modalState);
-    console.log(open);
+    
+    const filePickerRef = useRef(null);
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const addImageToPost = (e)=>{
+
+    }
+
     return (
         // <!-- This example requires Tailwind CSS v2.0+ -->
 <div  className={`${open ? '': 'hidden'} fixed z-10 inset-0 overflow-y-auto `} aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -45,10 +53,13 @@ function Modal() {
             </h3>
 
 
-            <div className="mt-2">
+            <div className="mt-5 flex space-x-2 " onClick={ ()=> filePickerRef.current.click() }>
+               <CameraIcon className="h-6 w-6 text-red-600"/>
                 <p className="underline text-blue-400 cursor-pointer">Upload Image</p>
             </div>
             <div className="mt-2  bg-red-500">
+                <input type="file"  hidden ref={filePickerRef}  onChange={addImageToPost}/>
+
               <input type="text" className="border-none focus:ring-2 ring-blue-400 w-full text-center rounded-lg" placeholder="Please enter caption" />
             </div>
           </div>
