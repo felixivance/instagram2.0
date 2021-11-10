@@ -11,7 +11,13 @@ function Modal() {
     const [selectedFile, setSelectedFile] = useState(null);
 
     const addImageToPost = (e)=>{
-
+        const reader = new FileReader();
+        if(e.target.files[0]){
+            reader.readAsDataURL(e.target.files[0]);
+        }
+        reader.onload = (readerEvent)=>{
+            setSelectedFile(readerEvent.target.result);
+        }
     }
 
     return (
@@ -52,16 +58,25 @@ function Modal() {
               Upload Post
             </h3>
 
+            {
+                selectedFile ? (
+                    <img src={selectedFile} alt="" 
+                    className="w-full object-contain cursor-pointer"
+                     onClick={()=>setSelectedFile(null)}/>
+                ):(
+                    <div className="mt-5 flex space-x-2 " onClick={ ()=> filePickerRef.current.click() }>
+                    <CameraIcon className="h-6 w-6 text-red-600"/>
+                     <p className="underline text-blue-400 cursor-pointer">Upload Image</p>
+                 </div>
+                       
+                )
+            }
+             <div className="mt-2   bg-red-500">
+                    <input type="file"  hidden ref={filePickerRef}  onChange={addImageToPost}/>
 
-            <div className="mt-5 flex space-x-2 " onClick={ ()=> filePickerRef.current.click() }>
-               <CameraIcon className="h-6 w-6 text-red-600"/>
-                <p className="underline text-blue-400 cursor-pointer">Upload Image</p>
+                <input type="text" className="border-none focus:ring-2 ring-blue-400 w-full text-center rounded-lg" placeholder="Please enter caption" />
             </div>
-            <div className="mt-2  bg-red-500">
-                <input type="file"  hidden ref={filePickerRef}  onChange={addImageToPost}/>
-
-              <input type="text" className="border-none focus:ring-2 ring-blue-400 w-full text-center rounded-lg" placeholder="Please enter caption" />
-            </div>
+            
           </div>
         </div>
       </div>
