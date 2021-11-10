@@ -9,6 +9,8 @@ function Modal() {
     
     const filePickerRef = useRef(null);
     const [selectedFile, setSelectedFile] = useState(null);
+    const captionRef = useRef('');
+    const [loading, setLoading] = useState(false);
 
     const addImageToPost = (e)=>{
         const reader = new FileReader();
@@ -18,6 +20,14 @@ function Modal() {
         reader.onload = (readerEvent)=>{
             setSelectedFile(readerEvent.target.result);
         }
+    }
+
+    const uploadPost= async ()=>{
+        setLoading(true);
+        // create a post andadd to firestore 'insta_posts' collection
+        //get post id for newley created post
+        // upload image to direbase storage with post id
+        //get download url from fb storage and update original post with image
     }
 
     return (
@@ -74,7 +84,7 @@ function Modal() {
              <div className="mt-2   bg-red-500">
                     <input type="file"  hidden ref={filePickerRef}  onChange={addImageToPost}/>
 
-                <input type="text" className="border-none focus:ring-2 ring-blue-400 w-full text-center rounded-lg" placeholder="Please enter caption" />
+                <input type="text" ref={captionRef} className="border-none focus:ring-2 ring-blue-400 w-full text-center rounded-lg" placeholder="Please enter caption" />
             </div>
             
           </div>
