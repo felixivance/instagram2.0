@@ -1,7 +1,6 @@
 import { useRecoilState } from "recoil"
 import { modalState } from "../atoms/modalAtom"
-import { Transition, Dialog } from '@headlessui/react';
-import { Fragment, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { CameraIcon } from "@heroicons/react/outline";
 
 function Modal() {
