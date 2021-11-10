@@ -58,8 +58,6 @@ function Header() {
                             <button onClick={signIn}>Sign In</button>
                         )
                     }
-
-                    
                 </div>
             </div>
        </div>

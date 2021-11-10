@@ -44,7 +44,6 @@ function Suggestions() {
                             <button className="text-blue-400">Follow</button>
                          </div>
                     </div>
-                    
                 ))
             }
         </div>
