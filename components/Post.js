@@ -1,11 +1,30 @@
+import { addDoc, collection, serverTimestamp } from "@firebase/firestore"
 import { BookmarkIcon, ChatIcon, DotsCircleHorizontalIcon, DotsHorizontalIcon, EmojiHappyIcon, HeartIcon, PaperAirplaneIcon } from "@heroicons/react/outline"
 
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid"
 import { useSession } from "next-auth/react"
+import { useState } from "react"
+import { db } from "../firebase"
 function Post({id, username, img, userImg, caption}) {
 
     const { data: session} = useSession()
+    const [ comments, setComments] = useState([]);
+    const [ comment, setComment] = useState("");
 
+    const sendComment = async (e) => {
+        e.preventDefault();
+        const commentToSend = comment;
+
+        setComment("");
+
+        await addDoc(collection(db, 'insta_posts',id, 'comments'),{
+            comment: commentToSend,
+            username: session.user.username,
+            userImage: session.user.image,
+            timestamp: serverTimestamp()
+        })
+
+    }
     return (
         <div className="bg-white my-7 border rounded-md">
             {/* header */}
@@ -48,11 +67,12 @@ function Post({id, username, img, userImg, caption}) {
             {/* input box */}
             {
                 session && (
-                    <div className="flex items-center p-4">
+                    <form className="flex items-center p-4">
                         <EmojiHappyIcon className="h-7 "/>
-                        <input type="text" className="border-none flex-1 focus:ring-0 outline-none" placeholder="Post your comment here"  />
-                        <button className="font-semibold text-blue-400">Post</button>
-                    </div>
+                        <input type="text" className="border-none flex-1 focus:ring-0 outline-none" placeholder="Post your comment here"  
+                        value={comment} onChange={(e)=>setComment(e.target.value)}/>
+                        <button type="submit" disabled={!comment.trim()} onClick={sendComment} className="font-semibold text-blue-400">Post</button>
+                    </form>
                 )
             }
            
