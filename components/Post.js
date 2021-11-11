@@ -1,7 +1,11 @@
 import { BookmarkIcon, ChatIcon, DotsCircleHorizontalIcon, DotsHorizontalIcon, EmojiHappyIcon, HeartIcon, PaperAirplaneIcon } from "@heroicons/react/outline"
 
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid"
+import { useSession } from "next-auth/react"
 function Post({id, username, img, userImg, caption}) {
+
+    const { data: session} = useSession()
+
     return (
         <div className="bg-white my-7 border rounded-md">
             {/* header */}
@@ -13,16 +17,22 @@ function Post({id, username, img, userImg, caption}) {
 
             {/* img */}
             <img src={img} className="object-cover w-full" alt="" />
-
+            
             {/* buttons */}
-           <div className="flex justify-between px-4 pt-4 ">
-                 <div className="flex space-x-4 ">
-                    <HeartIcon className="btn" />
-                    <ChatIcon className="btn"/>
-                    <PaperAirplaneIcon className="btn rotate-45"/>
-                </div>
+            {
+                session && (
+               
+                <div className="flex justify-between px-4 pt-4 ">
+                    <div className="flex space-x-4 ">
+                        <HeartIcon className="btn" />
+                        <ChatIcon className="btn"/>
+                        <PaperAirplaneIcon className="btn rotate-45"/>
+                    </div>
                 <BookmarkIcon className="btn"/>
-           </div>
+                </div>
+                )
+            }
+           
 
             {/* caption */}
             <div className="pt-3">
@@ -36,11 +46,16 @@ function Post({id, username, img, userImg, caption}) {
 
 
             {/* input box */}
-            <div className="flex items-center p-4">
-                <EmojiHappyIcon className="h-7 "/>
-                <input type="text" className="border-none flex-1 focus:ring-0 outline-none" placeholder="Post your comment here"  />
-                <button className="font-semibold text-blue-400">Post</button>
-            </div>
+            {
+                session && (
+                    <div className="flex items-center p-4">
+                        <EmojiHappyIcon className="h-7 "/>
+                        <input type="text" className="border-none flex-1 focus:ring-0 outline-none" placeholder="Post your comment here"  />
+                        <button className="font-semibold text-blue-400">Post</button>
+                    </div>
+                )
+            }
+           
             
         </div>
     )
