@@ -2,10 +2,15 @@ import { useRecoilState } from "recoil"
 import { modalState } from "../atoms/modalAtom"
 import {  useRef, useState } from "react";
 import { CameraIcon } from "@heroicons/react/outline";
+import { db, storage} from "../firebase";
+import { addDoc, collection, serverTimestamp, updateDoc } from '@firebase/firestore';
+import { useSession } from 'next-auth/react';
+import { ref, getDownloadURL, uploadString } from "@firebase/storage";
 
 function Modal() {
     const [open, setOpen]  = useRecoilState(modalState);
-    
+    const { data: session } = useSession();
+
     const filePickerRef = useRef(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const captionRef = useRef('');
@@ -27,6 +32,29 @@ function Modal() {
         //get post id for newley created post
         // upload image to direbase storage with post id
         //get download url from fb storage and update original post with image
+
+        const docRef = await addDoc(collection(db,'insta_posts' ),{
+            username: session.user.username,
+            caption: captionRef.current.value,
+            profileImg: session.user.image,
+            timestamp: serverTimestamp()
+        })
+
+        console.log("new doc added with ", docRef.id);
+        const imageRef = ref(storage, `insta_posts/${docRef.id}/image/`);
+
+        await uploadString(imageRef, selectedFile,"data_url").then(async snapShot=>{
+          const downloadUrl = await getDownloadURL(imageRef);
+          await updateDoc(doc(db, 'insta_posts', docRef.id),{
+            image: downloadUrl
+          })
+        })
+
+        setOpen(false);
+        setLoading(false);
+        setSelectedFile(null);
+
+
     }
 
     return (
@@ -90,7 +118,8 @@ function Modal() {
         </div>
       </div>
       <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-        <button type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+        <button type="button" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+        onClick={()=>uploadPost()}>
           Upload
         </button>
         <button type="button" className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
