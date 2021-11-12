@@ -52,8 +52,6 @@ function Modal() {
           })
           setSelectedFile(null);
         }
-       
-
         setOpen(false); 
         setLoading(false);
         
