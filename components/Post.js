@@ -33,23 +33,20 @@ function Post({id, username, img, userImg, caption}) {
 
         setComment("");
 
-        console.log(id)
         await addDoc(collection(db, "insta_posts",id, "comments"),{
             comment: commentToSend,
             username: session.user.username,
             userImage: session.user.image,
             timestamp: serverTimestamp()
         }).then((res)=>{
-            console.log("saving data");
-            console.log(res)
+           
         }).catch(e=>{
-            console.log("error")
-            console.log(e)
+            
         })
         
     }
     const likePost = ()=>{
-        console.log("clicked")
+        
     }
     return (
         <div className="bg-white my-7 border rounded-md">
