@@ -1,4 +1,4 @@
-import { addDoc, collection, serverTimestamp } from "@firebase/firestore"
+import {  collection,addDoc, serverTimestamp } from "@firebase/firestore"
 import { BookmarkIcon, ChatIcon, DotsCircleHorizontalIcon, DotsHorizontalIcon, EmojiHappyIcon, HeartIcon, PaperAirplaneIcon } from "@heroicons/react/outline"
 
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid"
@@ -11,17 +11,25 @@ function Post({id, username, img, userImg, caption}) {
     const [ comments, setComments] = useState([]);
     const [ comment, setComment] = useState("");
 
+    
     const sendComment = async (e) => {
         e.preventDefault();
         const commentToSend = comment;
 
         setComment("");
 
-        await addDoc(collection(db, 'insta_posts',id, 'comments'),{
+        console.log(id)
+        await addDoc(collection(db, "insta_posts",id, "comments"),{
             comment: commentToSend,
             username: session.user.username,
             userImage: session.user.image,
             timestamp: serverTimestamp()
+        }).then((res)=>{
+            console.log("saving data");
+            console.log(res)
+        }).catch(e=>{
+            console.log("error")
+            console.log(e)
         })
 
     }
@@ -58,7 +66,7 @@ function Post({id, username, img, userImg, caption}) {
                 <p className="pl-5">201,120 Likes</p>
                 <p className="pl-5 truncate">
                     <span className="font-bold mr-1">{username}</span>
-                    {caption}
+                    {caption} 
                 </p>
             </div>
             {/* comments */}
