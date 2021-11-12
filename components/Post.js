@@ -11,10 +11,21 @@ function Post({id, username, img, userImg, caption}) {
     const [ comments, setComments] = useState([]);
     const [ comment, setComment] = useState("");
 
-    useEffect(()=>onSnapshot(query(collection(db, "posts", id, "comments"),
-        orderBy("timestamp","desc"),
-        (snapshot)=>setComments(snapshot.docs)),
-    [db]));
+    useEffect(()=>{
+        const comments= onSnapshot(
+            query(
+                collection(db, "insta_posts", id, "comments"), orderBy("timestamp","desc"),
+                (snapshot)=>{
+                    setComments(snapshot.docs)
+                }
+            )
+        )
+        return ()=>{
+            comments
+        }
+    },[db]
+    
+    );
 
     const sendComment = async (e) => {
         e.preventDefault();
