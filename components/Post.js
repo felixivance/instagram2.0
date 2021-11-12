@@ -7,7 +7,7 @@ import { useState } from "react"
 import { db } from "../firebase"
 function Post({id, username, img, userImg, caption}) {
 
-    const { data: session} = useSession()
+    const { data: session} = useSession();
     const [ comments, setComments] = useState([]);
     const [ comment, setComment] = useState("");
 
