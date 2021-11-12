@@ -48,7 +48,7 @@ function Posts() {
         <div>
             {
                 posts.map((post, index)=>(
-                    <Post key={index} id={post.data().id} username={post.data().username} userImg={post.data().profileImg} 
+                    <Post key={index} id={post.id} username={post.data().username} userImg={post.data().profileImg} 
                     img={post.data().image} caption={post.data().caption}/>
                 ))
             }
