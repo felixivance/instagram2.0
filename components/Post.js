@@ -1,4 +1,4 @@
-import {  collection,addDoc, serverTimestamp, onSnapshot, orderBy } from "@firebase/firestore"
+import {  collection,addDoc, serverTimestamp, onSnapshot, orderBy, query } from "@firebase/firestore"
 import { BookmarkIcon, ChatIcon, DotsCircleHorizontalIcon, DotsHorizontalIcon, EmojiHappyIcon, HeartIcon, PaperAirplaneIcon } from "@heroicons/react/outline"
 
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid"
@@ -84,8 +84,8 @@ function Post({id, username, img, userImg, caption}) {
                     scrollbar-thumb-black scrollbar-thin">
                         {
                             comments.map((comment)=>(
-                                <div key={commment.id}>
-                                    <img src={comment.data().image} alt="" />
+                                <div key={commment.id} className="flex items-center space-x-2 mb-3">
+                                    <img src={comment.data().image} alt="" className="h-7 rounded-full" />
                                 </div>
                             ))
                         }
