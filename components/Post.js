@@ -62,7 +62,7 @@ function Post({id, username, img, userImg, caption}) {
            
 
             {/* caption */}
-            <div className="pt-3">
+            <div className="pt-3 pb-3">
                 <p className="pl-5">201,120 Likes</p>
                 <p className="pl-5 truncate">
                     <span className="font-bold mr-1">{username}</span>
