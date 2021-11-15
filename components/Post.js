@@ -99,7 +99,9 @@ function Post({id, username, img, userImg, caption}) {
 
             {/* caption */}
             <div className="pt-3 pb-3">
-                <p className="pl-5"> {likes.length} Likes</p>
+                {
+                    likes.length >0 && (<p className="pl-5"> {likes.length} Likes</p>)
+                }
                 <p className="pl-5 truncate">
                     <span className="font-bold mr-1">{username}</span>
                     {caption} 
