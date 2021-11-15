@@ -82,7 +82,7 @@ function Post({id, username, img, userImg, caption}) {
                 </p>
             </div>
             {/* comments */}
-
+            <p className="text-gray-400 pl-5 pb-2">Comments ({comments.length})</p>
             {
                 comments.length >0  && (
                     <div key={comment.id} className="ml-10 h-20 overflow-y-scroll 
@@ -90,7 +90,8 @@ function Post({id, username, img, userImg, caption}) {
                         {
                             comments.map((comment)=>(
                                 <div key={comment.id} className="flex items-center space-x-2 mb-3">
-                                    <img src={comment.data().image} alt="" className="h-7 rounded-full" />
+                                    <img src={comment.data().userImage} alt="" className="h-7 rounded-full" />
+                                    <p className="text-sm flex-1"> <span className="font-bold">{comment.data().username}</span> {comment.data().comment}</p>
                                 </div>
                             ))
                         }
