@@ -1,4 +1,4 @@
-import {  collection,addDoc, serverTimestamp, onSnapshot, orderBy, query, setDoc, doc } from "@firebase/firestore"
+import {  collection,addDoc, serverTimestamp, onSnapshot, orderBy, query, setDoc, doc, deleteDoc } from "@firebase/firestore"
 import { BookmarkIcon, ChatIcon, DotsCircleHorizontalIcon, DotsHorizontalIcon, EmojiHappyIcon, HeartIcon, PaperAirplaneIcon } from "@heroicons/react/outline"
 
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid"
@@ -30,7 +30,7 @@ function Post({id, username, img, userImg, caption}) {
     ), [db, id]);
 
     useEffect(()=>{
-        setHasLiked()
+        setHasLiked( likes.findIndex((like) =>  like.id === session?.user.id) !== -1 )
     },[likes])
 
     const sendComment = async (e) => {
@@ -54,9 +54,14 @@ function Post({id, username, img, userImg, caption}) {
     }
 
     const likePost = async () => {
-        await setDoc(doc(db, 'insta_posts', id , 'likes', session.user.id),{
-            username: session.user.username
-        })
+        if(hasLiked){
+            await deleteDoc(doc(db, 'insta_posts', id , 'likes', session.user.id))
+        }else{
+                await setDoc(doc(db, 'insta_posts', id , 'likes', session.user.id),{
+                username: session.user.username
+            })
+        }
+       
     }
 
     return (
@@ -77,7 +82,12 @@ function Post({id, username, img, userImg, caption}) {
                
                 <div className="flex justify-between px-4 pt-4 ">
                     <div className="flex space-x-4 ">
-                        <HeartIcon onClick={likePost} className="btn" />
+                        {
+                            hasLiked ? <HeartIconFilled onClick={likePost} className={`btn text-red-500 animate-pulse`} />
+                            : 
+                            <HeartIcon onClick={likePost} className={`btn `} />
+                        }
+                        
                         <ChatIcon className="btn"/>
                         <PaperAirplaneIcon className="btn rotate-45"/>
                     </div>
@@ -89,7 +99,7 @@ function Post({id, username, img, userImg, caption}) {
 
             {/* caption */}
             <div className="pt-3 pb-3">
-                <p className="pl-5">201,120 Likes</p>
+                <p className="pl-5"> {likes.length} Likes</p>
                 <p className="pl-5 truncate">
                     <span className="font-bold mr-1">{username}</span>
                     {caption} 
