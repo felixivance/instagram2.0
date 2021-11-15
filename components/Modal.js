@@ -40,7 +40,6 @@ function Modal() {
             timestamp: serverTimestamp()
         })
 
-        console.log("new doc added with ", docRef.id);
         if(selectedFile){
           const imageRef = ref(storage, `insta_posts/${docRef.id}/image/`);
 

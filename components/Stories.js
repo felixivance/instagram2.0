@@ -16,7 +16,7 @@ function Stories() {
                id: index
            } 
         ))
-        console.log(suggestions);
+
 
         setSuggestions(suggestions);
 
