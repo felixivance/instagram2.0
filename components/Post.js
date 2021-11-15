@@ -46,9 +46,9 @@ function Post({id, username, img, userImg, caption}) {
         
     }
 
-    const likePost = async ()=>{
-        await setDoc(doc(db, 'insta_posts', id , 'likes', session.user.uid),{
-            username: session.username
+    const likePost = async () => {
+        await setDoc(doc(db, 'insta_posts', id , 'likes', session.user.id),{
+            username: session.user.username
         })
     }
 
