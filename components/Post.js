@@ -13,6 +13,7 @@ function Post({id, username, img, userImg, caption}) {
     const [ comments, setComments] = useState([]);
     const [ comment, setComment] = useState("");
     const [ likes, setLikes ] = useState([]);
+    const [ hasLiked, setHasLiked] = useState(false);
 
     useEffect(()=> onSnapshot(
         query(
@@ -24,8 +25,13 @@ function Post({id, username, img, userImg, caption}) {
         ),[db, id]
     );
 
-    useEffect(()=> onSnapshot(collection(db, 'insta_posts', id, 'likes'), snapshot=> setLikes(snapshot.docs) 
+    useEffect(()=> onSnapshot(collection(db, 'insta_posts', id, 'likes'), 
+        snapshot=> setLikes(snapshot.docs) 
     ), [db, id]);
+
+    useEffect(()=>{
+        setHasLiked()
+    },[likes])
 
     const sendComment = async (e) => {
         e.preventDefault();
@@ -38,6 +44,7 @@ function Post({id, username, img, userImg, caption}) {
             username: session.user.username,
             userImage: session.user.image,
             timestamp: serverTimestamp()
+        
         }).then((res)=>{
            
         }).catch(e=>{
