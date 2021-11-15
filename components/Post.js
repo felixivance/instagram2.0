@@ -1,4 +1,4 @@
-import {  collection,addDoc, serverTimestamp, onSnapshot, orderBy, query } from "@firebase/firestore"
+import {  collection,addDoc, serverTimestamp, onSnapshot, orderBy, query, setDoc, doc } from "@firebase/firestore"
 import { BookmarkIcon, ChatIcon, DotsCircleHorizontalIcon, DotsHorizontalIcon, EmojiHappyIcon, HeartIcon, PaperAirplaneIcon } from "@heroicons/react/outline"
 
 import { HeartIcon as HeartIconFilled } from "@heroicons/react/solid"
@@ -12,6 +12,7 @@ function Post({id, username, img, userImg, caption}) {
     const { data: session} = useSession();
     const [ comments, setComments] = useState([]);
     const [ comment, setComment] = useState("");
+    const [ likes, setLikes ] = useState([]);
 
     useEffect(()=> onSnapshot(
         query(
@@ -20,9 +21,11 @@ function Post({id, username, img, userImg, caption}) {
                 setComments(snapshot.docs)
             }
         
-    ),[db]
-    
+        ),[db, id]
     );
+
+    useEffect(()=> onSnapshot(collection(db, 'insta_posts', id, 'likes'), snapshot=> setLikes(snapshot.docs) 
+    ), [db, id]);
 
     const sendComment = async (e) => {
         e.preventDefault();
@@ -43,8 +46,10 @@ function Post({id, username, img, userImg, caption}) {
         
     }
 
-    const likePost = ()=>{
-        
+    const likePost = async ()=>{
+        await setDoc(doc(db, 'insta_posts', id , 'likes', session.user.uid),{
+            username: session.username
+        })
     }
 
     return (
@@ -65,7 +70,7 @@ function Post({id, username, img, userImg, caption}) {
                
                 <div className="flex justify-between px-4 pt-4 ">
                     <div className="flex space-x-4 ">
-                        <HeartIcon className="btn" />
+                        <HeartIcon onClick={likePost} className="btn" />
                         <ChatIcon className="btn"/>
                         <PaperAirplaneIcon className="btn rotate-45"/>
                     </div>
@@ -87,7 +92,7 @@ function Post({id, username, img, userImg, caption}) {
             <p className="text-gray-400 pl-5 pb-2">Comments ({comments.length})</p>
             {
                 comments.length >0  && (
-                    <div key={comment.id} className="ml-10 h-20 overflow-y-scroll 
+                    <div key={comment.id} className="ml-10 h-30 overflow-y-scroll 
                     scrollbar-thumb-black scrollbar-thin">
                         {
                             comments.map((comment)=>(
