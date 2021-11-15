@@ -11,19 +11,14 @@ function Post({id, username, img, userImg, caption}) {
     const [ comments, setComments] = useState([]);
     const [ comment, setComment] = useState("");
 
-    useEffect(()=>{
-        const comments= onSnapshot(
-            query(
-                collection(db, "insta_posts", id, "comments"), orderBy("timestamp","desc"),
-                (snapshot)=>{
-                    setComments(snapshot.docs)
-                }
-            )
-        )
-        return ()=>{
-            comments
-        }
-    },[db]
+    useEffect(()=> onSnapshot(
+        query(
+            collection(db, "insta_posts", id, "comments"), orderBy('timestamp','desc')),
+            (snapshot)=>{
+                setComments(snapshot.docs)
+            }
+        
+    ),[db]
     
     );
 
@@ -45,9 +40,11 @@ function Post({id, username, img, userImg, caption}) {
         })
         
     }
+
     const likePost = ()=>{
         
     }
+
     return (
         <div className="bg-white my-7 border rounded-md">
             {/* header */}
@@ -92,7 +89,7 @@ function Post({id, username, img, userImg, caption}) {
                     scrollbar-thumb-black scrollbar-thin">
                         {
                             comments.map((comment)=>(
-                                <div key={commment.id} className="flex items-center space-x-2 mb-3">
+                                <div key={comment.id} className="flex items-center space-x-2 mb-3">
                                     <img src={comment.data().image} alt="" className="h-7 rounded-full" />
                                 </div>
                             ))
