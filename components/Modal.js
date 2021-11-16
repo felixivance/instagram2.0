@@ -54,7 +54,7 @@ function Modal() {
         }
         setOpen(false); 
         setLoading(false);
-        
+        filePickerRef.current.value=''; //reset input
     }
 
     return (
