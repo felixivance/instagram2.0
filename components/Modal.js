@@ -37,7 +37,8 @@ function Modal() {
             username: session.user.username,
             caption: captionRef.current.value,
             profileImg: session.user.image,
-            timestamp: serverTimestamp()
+            timestamp: serverTimestamp(),
+            userId: session.user.id
         })
 
         if(selectedFile){
