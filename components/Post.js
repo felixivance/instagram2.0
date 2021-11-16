@@ -61,7 +61,6 @@ function Post({id, username, img, userImg, caption, userId}) {
                 username: session.user.username
             })
         }
-       
     }
 
     const deletePost = async () =>{
