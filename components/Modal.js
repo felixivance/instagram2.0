@@ -111,7 +111,7 @@ function Modal() {
              <div className="mt-2   bg-red-500">
                     <input type="file"  hidden ref={filePickerRef}  onChange={addImageToPost}/>
 
-                <input type="text" ref={captionRef} className="border-none focus:ring-2 ring-blue-400 w-full text-center rounded-lg" placeholder="Please enter caption" />
+                <input type="text" ref={captionRef} className={` ${selectedFile ? '' : 'hidden' } border-none focus:ring-2 ring-blue-400 w-full text-center rounded-lg` } placeholder="Please enter caption" />
             </div>
             
           </div>
