@@ -14,6 +14,11 @@ function Header() {
 
     const [open, setOpenState] = useRecoilState(modalState);
 
+    const logout = () =>{
+        if(confirm("Are you sure you want to logout? ")){
+            signOut()
+        }
+    }
     return (
        <div className="shadow-sm border-b bg-white top-0 sticky z-50 ">
             <div className="flex justify-between max-w-6xl items-center  xl:mx-auto w-11/12 mx-auto">
@@ -52,7 +57,7 @@ function Header() {
                                 <PlusCircleIcon className="navBtn" onClick={()=>setOpenState(true)} />
                                 <UserGroupIcon className="navBtn" />
                                 <HeartIcon className="navBtn" />
-                                <img src={session.user?.image} alt=""  className="h-10 w-10 rounded-full cursor-pointer" onClick={signOut}/>
+                                <img src={session.user?.image} alt=""  className="h-10 w-10 rounded-full cursor-pointer" onClick={logout}/>
                             </>
                         ) :(
                             <button onClick={signIn}>Sign In</button>
