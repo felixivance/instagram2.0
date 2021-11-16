@@ -76,7 +76,7 @@ function Post({id, username, img, userImg, caption, userId}) {
             <div className="flex items-center justify-between p-5">
                 <img src={userImg} className="rounded-full h-12 w-12 object-contain border p-1 mr-2"  onDoubleClick={likePost} />
                 <p className="flex-1 font-bold">{username}</p>
-                <DotsHorizontalIcon className={` ${session?.user?.id !== userId ? 'hidden' : '' } h-5`}  />
+                <DotsHorizontalIcon className={` ${session?.user?.id === userId ? 'hidden' : '' } h-5`}  />
                {
                    session &&  <TrashIcon className={` ${session.user?.id == userId ? '' : 'hidden' } h-5 text-red-600`} onClick={deletePost} />
                }
